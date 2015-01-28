@@ -143,6 +143,7 @@ class Crawler(object):
         self.article.meta_keywords = metas['keywords']
         self.article.canonical_link = metas['canonical']
         self.article.domain = metas['domain']
+        self.article.rss_links = metas['rss']
 
         # tags
         self.article.tags = self.tags_extractor.extract()

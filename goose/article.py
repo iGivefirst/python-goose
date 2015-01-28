@@ -49,6 +49,9 @@ class Article(object):
         # The canonical link of this article if found in the meta data
         self.canonical_link = u""
 
+        # The rss links of this article if found in the meta data
+        self.rss_links = []
+
         # holds the domain of this article we're parsing
         self.domain = u""
 
@@ -116,6 +119,7 @@ class Article(object):
                 "keywords": self.meta_keywords,
                 "favicon": self.meta_favicon,
                 "canonical": self.canonical_link,
+                "rss":  self.rss_links
             },
             "image": None,
             "domain": self.domain,

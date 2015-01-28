@@ -124,6 +124,20 @@ class MetasExtractor(BaseExtractor):
         """
         return self.get_meta_content("meta[name=keywords]")
 
+    def get_rss_links(self):
+        """\
+        Extract the rss links from a website
+        <link rel="alternate" type="application/rss+xml" title="FOX News RSS" href="http://feeds.feedburner.com/foxnews/latest" />
+        """
+        kwargs = {'tag': 'link', 'attr': 'type', 'value': 'application\/rss\+xml'}
+        meta = self.parser.getElementsByTag(self.article.doc, **kwargs)
+        if meta:
+            rss_links = []
+            for link in meta:
+                rss_links.append(self.parser.getAttribute(link, 'href'))
+            return rss_links
+        return ''
+
     def extract(self):
         return {
             "description": self.get_meta_description(),
@@ -131,5 +145,6 @@ class MetasExtractor(BaseExtractor):
             "lang": self.get_meta_lang(),
             "favicon": self.get_favicon(),
             "canonical": self.get_canonical_link(),
-            "domain": self.get_domain()
+            "domain": self.get_domain(),
+            "rss": self.get_rss_links()
         }
