@@ -131,12 +131,13 @@ class MetasExtractor(BaseExtractor):
         """
         kwargs = {'tag': 'link', 'attr': 'type', 'value': 'application\/rss\+xml'}
         meta = self.parser.getElementsByTag(self.article.doc, **kwargs)
+
         if meta:
             rss_links = []
             for link in meta:
                 rss_links.append(self.parser.getAttribute(link, 'href'))
             return rss_links
-        return ''
+        return None 
 
     def extract(self):
         return {
@@ -146,5 +147,5 @@ class MetasExtractor(BaseExtractor):
             "favicon": self.get_favicon(),
             "canonical": self.get_canonical_link(),
             "domain": self.get_domain(),
-            "rss": self.get_rss_links()
+            "rss_links": self.get_rss_links()
         }
